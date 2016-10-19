@@ -65,13 +65,11 @@ class AuthenticationServiceFactory extends AbstractFactory
         if ($this->hasOption('listeners')) {
             /** @var array $listeners */
             $listeners    = $this->getOption('listeners', false);
-            $eventManager = $container->get('EventManager');
+            $eventManager = $authenticationService->getEventManager();
 
-            foreach ($listeners as $listener) {
+            foreach ($listeners as $eventName => $listener) {
                 $container->get($listener)->attach($eventManager);
             }
-
-            $authenticationService->setEventManager($eventManager);
         }
 
         return $authenticationService;
