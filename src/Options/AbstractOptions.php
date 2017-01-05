@@ -181,7 +181,9 @@ abstract class AbstractOptions extends ZendAbstractOptions
      */
     public function setResultMessages(array $resultMessages)
     {
-        $this->resultMessages = array_merge($this->resultMessages, $resultMessages);
+        foreach($resultMessages as $code => $message) {
+            $this->resultMessages[$code] = $message;
+        }
 
         return $this;
     }
