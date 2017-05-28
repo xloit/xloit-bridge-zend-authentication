@@ -1,44 +1,44 @@
 {
-    "name": "xloit/xloit-bridge-zend-authentication",
-    "type": "library",
-    "description": "Xloit Bridge Zend Authentication Library",
-    "keywords": [
-        "xloit",
-        "zend-authentication",
-        "library"
-    ],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Yudha Setiawan",
-            "email": "me@yudhasetiawan.com",
-            "homepage": "http://yudhasetiawan.com/"
-        }
-    ],
-    "require": {
-        "php": "^5.4 || ^7.0",
-        "xloit/xloit-exception": "^0.0",
-        "xloit/xloit-bridge-zend-eventmanager": "^0.0",
-        "xloit/xloit-bridge-zend-servicemanager": "^1.0",
-        "xloit/xloit-bridge-zend-session": "^0.0",
-        "zendframework/zend-authentication": "^2.5",
-        "zendframework/zend-crypt": "^2.6 || ^3.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~4.0",
-        "zendframework/zend-db": "^2.7"
-    },
-    "suggest": {
-    },
-    "autoload": {
-        "psr-4": {
-            "Xloit\\Bridge\\Zend\\Authentication\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-0": {
-            "Xloit\\Bridge\\Zend\\Authentication\\Tests\\": "tests/"
-        }
-    },
-    "prefer-stable": true
+  "name": "xloit/xloit-bridge-zend-authentication",
+  "type": "library",
+  "description": "Xloit Bridge Zend Authentication Library",
+  "keywords": [
+    "xloit",
+    "zend-authentication",
+    "library"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Yudha Setiawan",
+      "email": "me@yudhasetiawan.com",
+      "homepage": "http://yudhasetiawan.com/"
+    }
+  ],
+  "require": {
+    "php": "^5.4 || ^7.0",
+    "xloit/xloit-exception": "^0.0",
+    "xloit/xloit-bridge-zend-eventmanager": "^0.0",
+    "xloit/xloit-bridge-zend-servicemanager": "^1.0",
+    "xloit/xloit-bridge-zend-session": "^0.0",
+    "zendframework/zend-authentication": "^2.5",
+    "zendframework/zend-crypt": "^2.6 || ^3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "zendframework/zend-db": "^2.7"
+  },
+  "suggest": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Xloit\\Bridge\\Zend\\Authentication\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-0": {
+      "Xloit\\Bridge\\Zend\\Authentication\\Tests\\": "tests/"
+    }
+  },
+  "prefer-stable": true
 }
