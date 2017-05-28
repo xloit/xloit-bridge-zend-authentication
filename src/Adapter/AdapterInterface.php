@@ -33,7 +33,7 @@ interface AdapterInterface extends ZendAdapterInterface
      *
      * @param  array|AuthenticationOptions $options
      *
-     * @return static
+     * @return $this
      */
     public function setOptions($options);
 
@@ -56,7 +56,7 @@ interface AdapterInterface extends ZendAdapterInterface
      *
      * @param  mixed $credential
      *
-     * @return static
+     * @return $this
      */
     public function setCredential($credential);
 
@@ -72,7 +72,7 @@ interface AdapterInterface extends ZendAdapterInterface
      *
      * @param  mixed $identity
      *
-     * @return static
+     * @return $this
      */
     public function setIdentity($identity);
 

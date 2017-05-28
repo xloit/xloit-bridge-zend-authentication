@@ -70,7 +70,7 @@ class AuthenticationEvent extends Event
      *
      * @param mixed $identity
      *
-     * @return static
+     * @return $this
      */
     public function setIdentity($identity = null)
     {
@@ -88,7 +88,7 @@ class AuthenticationEvent extends Event
      *
      * @param AuthenticationResult $result
      *
-     * @return static
+     * @return $this
      */
     public function setResult(AuthenticationResult $result = null)
     {
@@ -126,7 +126,7 @@ class AuthenticationEvent extends Event
      *
      * @param Adapter\AdapterInterface $adapter
      *
-     * @return static
+     * @return $this
      */
     public function setAdapter(Adapter\AdapterInterface $adapter)
     {
@@ -150,7 +150,7 @@ class AuthenticationEvent extends Event
      *
      * @param Request $request
      *
-     * @return static
+     * @return $this
      */
     public function setRequest(Request $request)
     {

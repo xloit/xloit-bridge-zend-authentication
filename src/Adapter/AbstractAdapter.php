@@ -17,6 +17,7 @@
 
 namespace Xloit\Bridge\Zend\Authentication\Adapter;
 
+use Xloit\Bridge\Zend\Authentication\AuthenticationResult;
 use Xloit\Bridge\Zend\Authentication\Options\AuthenticationOptions;
 use Zend\Authentication\Adapter\AbstractAdapter as BaseAbstractAdapter;
 
@@ -29,6 +30,17 @@ use Zend\Authentication\Adapter\AbstractAdapter as BaseAbstractAdapter;
 abstract class AbstractAdapter extends BaseAbstractAdapter implements AdapterInterface
 {
     use AdapterTrait;
+
+    /**
+     *
+     *
+     * @var array
+     */
+    protected $authenticateResultInfo = [
+        'code'     => AuthenticationResult::FAILURE,
+        'identity' => null,
+        'messages' => []
+    ];
 
     /**
      * Constructor to prevent {@link Doctrine} from being loaded more than once.

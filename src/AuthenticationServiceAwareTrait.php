@@ -46,7 +46,7 @@ trait AuthenticationServiceAwareTrait
      *
      * @param AuthenticationService $authenticationService
      *
-     * @return static
+     * @return $this
      */
     public function setAuthenticationService(AuthenticationService $authenticationService)
     {

@@ -17,11 +17,13 @@
 
 namespace Xloit\Bridge\Zend\Authentication\Exception;
 
+use Xloit\Exception\Runtime\UnexpectedValueException as AbstractUnexpectedValueException;
+
 /**
  * An {@link UnexpectedValueException} class.
  *
  * @package Xloit\Bridge\Zend\Authentication\Exception
  */
-class UnexpectedValueException extends \Xloit\Exception\Runtime\UnexpectedValueException
+class UnexpectedValueException extends AbstractUnexpectedValueException
 {
 }

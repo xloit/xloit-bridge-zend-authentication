@@ -36,40 +36,29 @@ trait AdapterTrait
     protected $options;
 
     /**
-     *
-     *
-     * @var array
-     */
-    protected $authenticateResultInfo = [
-        'code'     => AuthenticationResult::FAILURE,
-        'identity' => null,
-        'messages' => []
-    ];
-
-    /**
-     * Sets the identity for binding
+     * Sets the identity for binding.
      *
      * @param mixed $identity
      *
-     * @return static
+     * @return $this
      */
     abstract public function setIdentity($identity);
 
     /**
-     * Sets the credential for binding
+     * Sets the credential for binding.
      *
      * @param mixed $credential
      *
-     * @return static
+     * @return $this
      */
     abstract public function setCredential($credential);
 
     /**
      *
      *
-     * @param  array|AuthenticationOptions $options
+     * @param array|AuthenticationOptions $options
      *
-     * @return static
+     * @return $this
      */
     public function setOptions($options)
     {
@@ -97,7 +86,7 @@ trait AdapterTrait
      * required pieces of information.
      *
      * @return void
-     * @throws Exception\RuntimeException - in the event that setup was not done properly.
+     * @throws \Xloit\Bridge\Zend\Authentication\Exception\RuntimeException
      */
     protected function setup()
     {

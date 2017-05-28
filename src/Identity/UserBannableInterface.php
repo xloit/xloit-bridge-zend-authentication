@@ -27,7 +27,7 @@ interface UserBannableInterface
     /**
      * Indicates whether the current user has been banned.
      *
-     * @return boolean
+     * @return bool
      */
     public function isBanned();
 }

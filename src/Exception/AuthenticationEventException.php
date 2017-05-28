@@ -17,6 +17,8 @@
 
 namespace Xloit\Bridge\Zend\Authentication\Exception;
 
+use Xloit\Exception\RuntimeException;
+
 /**
  * An {@link AuthenticationEventException} class.
  *

@@ -31,10 +31,21 @@ class DbTable extends CredentialTreatmentAdapter implements AdapterInterface
     use AdapterTrait;
 
     /**
+     *
+     *
+     * @var array
+     */
+    protected $authenticateResultInfo = [
+        'code'     => AuthenticationResult::FAILURE,
+        'identity' => null,
+        'messages' => []
+    ];
+
+    /**
      * This method abstracts the steps involved with making sure that this adapter was indeed setup properly with all
      * required pieces of information.
      *
-     * @return boolean
+     * @return bool
      * @throws Exception\RuntimeException in the event that setup was not done properly.
      */
     protected function authenticateSetup()

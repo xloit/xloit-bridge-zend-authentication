@@ -55,8 +55,8 @@ class AuthenticationOptions extends AbstractOptions
      *
      * @param  string $identityProperty
      *
-     * @return static
-     * @throws Exception\InvalidArgumentException
+     * @return $this
+     * @throws \Xloit\Bridge\Zend\Authentication\Exception\InvalidArgumentException
      */
     public function setIdentityProperty($identityProperty)
     {
@@ -84,10 +84,10 @@ class AuthenticationOptions extends AbstractOptions
     /**
      *
      *
-     * @param  string $credentialProperty
+     * @param string $credentialProperty
      *
-     * @return static
-     * @throws Exception\InvalidArgumentException
+     * @return $this
+     * @throws \Xloit\Bridge\Zend\Authentication\Exception\InvalidArgumentException
      */
     public function setCredentialProperty($credentialProperty)
     {

@@ -85,7 +85,7 @@ abstract class AbstractOptions extends ZendAbstractOptions
      *
      * @param int $expiredTime
      *
-     * @return static
+     * @return $this
      */
     public function setExpiredTime($expiredTime)
     {
@@ -109,7 +109,7 @@ abstract class AbstractOptions extends ZendAbstractOptions
      *
      * @param array $cryptOptions
      *
-     * @return static
+     * @return $this
      */
     public function setCryptOptions(array $cryptOptions)
     {
@@ -133,7 +133,7 @@ abstract class AbstractOptions extends ZendAbstractOptions
      *
      * @param PasswordInterface $cryptService
      *
-     * @return static
+     * @return $this
      */
     public function setCryptService(PasswordInterface $cryptService)
     {
@@ -163,7 +163,7 @@ abstract class AbstractOptions extends ZendAbstractOptions
      * @param int    $code
      * @param string $message
      *
-     * @return static
+     * @return $this
      */
     public function setResultMessage($code, $message)
     {
@@ -177,11 +177,11 @@ abstract class AbstractOptions extends ZendAbstractOptions
      *
      * @param array $resultMessages
      *
-     * @return static
+     * @return $this
      */
     public function setResultMessages(array $resultMessages)
     {
-        foreach($resultMessages as $code => $message) {
+        foreach ($resultMessages as $code => $message) {
             $this->resultMessages[$code] = $message;
         }
 

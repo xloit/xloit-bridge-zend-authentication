@@ -17,11 +17,13 @@
 
 namespace Xloit\Bridge\Zend\Authentication\Exception;
 
+use Xloit\Exception\RuntimeException as AbstractRuntimeException;
+
 /**
  * A {@link RuntimeException} class.
  *
  * @package Xloit\Bridge\Zend\Authentication\Exception
  */
-class RuntimeException extends \Xloit\Exception\RuntimeException
+class RuntimeException extends AbstractRuntimeException
 {
 }

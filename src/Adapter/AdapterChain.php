@@ -52,9 +52,9 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
     protected $results = [];
 
     /**
-     * Indicates whether to break the chain weh failure
+     * Indicates whether to break the chain weh failure.
      *
-     * @var boolean
+     * @var bool
      */
     protected $breakChainOnFailure = true;
 
@@ -76,7 +76,7 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
      * If breakChainOnFailure is true, then if the adapter fails, the next adapter in the chain, if one exists,
      * will not be executed.
      *
-     * @return boolean
+     * @return bool
      */
     public function getBreakChainOnFailure()
     {
@@ -86,9 +86,9 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
     /**
      * Sets the value of BreakChainOnFailure.
      *
-     * @param boolean $breakChainOnFailure
+     * @param bool $breakChainOnFailure
      *
-     * @return static
+     * @return $this
      */
     public function setBreakChainOnFailure($breakChainOnFailure)
     {
@@ -102,7 +102,7 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
      *
      * @param array $adapters
      *
-     * @return static
+     * @return $this
      */
     public function setAdapters(array $adapters)
     {
@@ -125,7 +125,7 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
      * @param AdapterInterface $adapter
      * @param int              $priority Priority at which to enqueue adapter; defaults to 1 (higher executes earlier)
      *
-     * @return static
+     * @return $this
      */
     public function attach(AdapterInterface $adapter, $priority = self::DEFAULT_PRIORITY)
     {
@@ -139,7 +139,7 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
      *
      * @param AdapterInterface $adapter
      *
-     * @return static
+     * @return $this
      */
     public function prependAdapter(AdapterInterface $adapter)
     {
@@ -163,7 +163,7 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
      *
      * @param AdapterChain $adaptersChain
      *
-     * @return static
+     * @return $this
      */
     public function merge(AdapterChain $adaptersChain)
     {
@@ -181,7 +181,7 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
      * Adapters are run in the order in which they were added to the chain (FIFO).
      *
      * @return AuthenticationResult[]
-     * @throws Exception\RuntimeException
+     * @throws \Xloit\Bridge\Zend\Authentication\Exception\RuntimeException
      * @throws \Zend\Authentication\Adapter\Exception\ExceptionInterface
      */
     public function authenticate()
@@ -348,10 +348,12 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
         $data          = unserialize($serialized);
         $this->results = [];
 
+        /** @noinspection ForeachSourceInspection */
         foreach ($data['results'] as $item) {
             $this->results[] = $item;
         }
 
+        /** @noinspection ForeachSourceInspection */
         foreach ($data['adapters'] as $item) {
             $this->adapters->insert($item['data'], $item['priority']);
         }

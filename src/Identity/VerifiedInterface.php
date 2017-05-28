@@ -27,7 +27,7 @@ interface VerifiedInterface
     /**
      * Indicates whether the current user has been verified.
      *
-     * @return boolean
+     * @return bool
      */
     public function isVerified();
 }

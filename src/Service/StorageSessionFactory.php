@@ -38,10 +38,10 @@ class StorageSessionFactory extends AbstractFactory
      * @param array              $options
      *
      * @return Session
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \Xloit\Std\Exception\RuntimeException
-     * @throws \Interop\Container\Exception\NotFoundException
      * @throws \Xloit\Bridge\Zend\ServiceManager\Exception\StateException
-     * @throws \Interop\Container\Exception\ContainerException
      * @throws \Zend\Session\Exception\InvalidArgumentException
      */
     public function __invoke(ContainerInterface $container, $name, array $options = null)
@@ -60,10 +60,10 @@ class StorageSessionFactory extends AbstractFactory
      * @param ContainerInterface $serviceLocator
      *
      * @return array
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \Xloit\Std\Exception\RuntimeException
      * @throws \Xloit\Bridge\Zend\ServiceManager\Exception\StateException
-     * @throws \Interop\Container\Exception\NotFoundException
-     * @throws \Interop\Container\Exception\ContainerException
      * @throws \Zend\Session\Exception\InvalidArgumentException
      */
     public function getConstructorConfig(ContainerInterface $serviceLocator)

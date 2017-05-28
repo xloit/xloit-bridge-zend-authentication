@@ -17,11 +17,13 @@
 
 namespace Xloit\Bridge\Zend\Authentication\Exception;
 
+use Xloit\Exception\Logic\InvalidArgumentException as AbstractInvalidArgumentException;
+
 /**
  * An {@link InvalidArgumentException} class.
  *
  * @package Xloit\Bridge\Zend\Authentication\Exception
  */
-class InvalidArgumentException extends \Xloit\Exception\Logic\InvalidArgumentException
+class InvalidArgumentException extends AbstractInvalidArgumentException
 {
 }

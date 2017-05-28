@@ -89,7 +89,7 @@ class AuthenticationResult extends Result
      *
      * @param Response $response
      *
-     * @return static
+     * @return $this
      */
     public function setResponse(Response $response)
     {

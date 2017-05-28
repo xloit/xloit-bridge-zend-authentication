@@ -36,7 +36,7 @@ interface AuthenticationServiceAwareInterface
      *
      * @param AuthenticationService $authenticationService
      *
-     * @return static
+     * @return $this
      */
     public function setAuthenticationService(AuthenticationService $authenticationService);
 }

@@ -65,7 +65,7 @@ class Session extends Storage\Session
     /**
      * Returns true if and only if storage is empty.
      *
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -145,7 +145,7 @@ class Session extends Storage\Session
      *
      * @param int $expiredTime
      *
-     * @return static
+     * @return $this
      */
     public function setExpiredTime($expiredTime)
     {
@@ -158,10 +158,10 @@ class Session extends Storage\Session
      * Set the TTL (in seconds) for the session cookie expiry.
      *
      *
-     * @param boolean $rememberMe
-     * @param null    $time
+     * @param bool     $rememberMe
+     * @param int|null $time
      *
-     * @return static
+     * @return $this
      */
     public function rememberMe($rememberMe = true, $time = null)
     {
@@ -179,7 +179,7 @@ class Session extends Storage\Session
     /**
      * Set a 0s TTL for the session cookie.
      *
-     * @return static
+     * @return $this
      */
     public function forgetMe()
     {
