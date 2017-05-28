@@ -17,7 +17,6 @@
 
 namespace Xloit\Bridge\Zend\Authentication;
 
-use Zend\Authentication\AuthenticationService as ZendAuthenticationService;
 use Zend\Authentication\Storage\StorageInterface;
 use Zend\EventManager\EventInterface;
 use Zend\EventManager\EventManagerAwareTrait;
@@ -28,9 +27,8 @@ use Zend\Stdlib\ResponseInterface as Response;
  * An {@link AuthenticationService} class.
  *
  * @package Xloit\Bridge\Zend\Authentication
- * @method Adapter\AdapterInterface getAdapter
  */
-class AuthenticationService extends ZendAuthenticationService implements AuthenticationServiceInterface
+class AuthenticationService implements AuthenticationServiceInterface
 {
     use EventManagerAwareTrait;
 
@@ -49,6 +47,37 @@ class AuthenticationService extends ZendAuthenticationService implements Authent
     protected $request;
 
     /**
+     * Persistent storage handler
+     *
+     * @var StorageInterface
+     */
+    protected $storage;
+
+    /**
+     * Authentication adapter
+     *
+     * @var Adapter\AdapterInterface
+     */
+    protected $adapter;
+
+    /**
+     * Constructor to prevent {@link AuthenticationService} from being loaded more than once.
+     *
+     * @param StorageInterface         $storage
+     * @param Adapter\AdapterInterface $adapter
+     */
+    public function __construct(StorageInterface $storage = null, Adapter\AdapterInterface $adapter = null)
+    {
+        if (null !== $storage) {
+            $this->setStorage($storage);
+        }
+
+        if (null !== $adapter) {
+            $this->setAdapter($adapter);
+        }
+    }
+
+    /**
      *
      *
      * @return Request
@@ -63,11 +92,65 @@ class AuthenticationService extends ZendAuthenticationService implements Authent
      *
      * @param Request $request
      *
-     * @return static
+     * @return $this
      */
     public function setRequest(Request $request)
     {
         $this->request = $request;
+
+        return $this;
+    }
+
+    /**
+     * Returns the authentication adapter.
+     * The adapter does not have a default if the storage adapter has not been set.
+     *
+     * @return Adapter\AdapterInterface
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
+
+    /**
+     * Sets the authentication adapter.
+     *
+     * @param Adapter\AdapterInterface $adapter
+     *
+     * @return $this
+     */
+    public function setAdapter(Adapter\AdapterInterface $adapter)
+    {
+        $this->adapter = $adapter;
+
+        return $this;
+    }
+
+    /**
+     * Returns the persistent storage handler.
+     * Session storage is used by default unless a different storage adapter has been set.
+     *
+     * @return StorageInterface
+     */
+    public function getStorage()
+    {
+        if (null === $this->storage) {
+            $this->setStorage(new Storage\Session(static::class));
+        }
+
+        return $this->storage;
+    }
+
+    /**
+     * Sets the persistent storage handler.
+     *
+     * @param StorageInterface $storage
+     *
+     * @return $this
+     */
+    public function setStorage(StorageInterface $storage)
+    {
+        $this->storage = $storage;
 
         return $this;
     }
@@ -95,7 +178,7 @@ class AuthenticationService extends ZendAuthenticationService implements Authent
      *
      * @param EventInterface $event
      *
-     * @return static
+     * @return $this
      * @throws \Zend\EventManager\Exception\InvalidArgumentException
      */
     public function setEvent(EventInterface $event)
@@ -123,18 +206,42 @@ class AuthenticationService extends ZendAuthenticationService implements Authent
     }
 
     /**
-     * Returns the persistent storage handler.
-     * Session storage is used by default unless a different storage adapter has been set.
+     * Returns true if and only if an identity is available from storage.
      *
-     * @return StorageInterface
+     * @return bool
+     * @throws \Zend\Authentication\Exception\ExceptionInterface
      */
-    public function getStorage()
+    public function hasIdentity()
     {
-        if (null === $this->storage) {
-            $this->setStorage(new Storage\Session(static::class));
+        return !$this->getStorage()->isEmpty();
+    }
+
+    /**
+     * Returns the identity from storage or null if no identity is available.
+     *
+     * @return mixed|null
+     * @throws \Zend\Authentication\Exception\ExceptionInterface
+     */
+    public function getIdentity()
+    {
+        $storage = $this->getStorage();
+
+        if ($storage->isEmpty()) {
+            return null;
         }
 
-        return $this->storage;
+        return $storage->read();
+    }
+
+    /**
+     * Clears the identity from persistent storage.
+     *
+     * @return void
+     * @throws \Zend\Authentication\Exception\ExceptionInterface
+     */
+    public function clearIdentity()
+    {
+        $this->getStorage()->clear();
     }
 
     /**
@@ -144,8 +251,8 @@ class AuthenticationService extends ZendAuthenticationService implements Authent
      * @param Request                  $request
      *
      * @return AuthenticationResult
-     * @throws Exception\AuthenticationStopException
-     * @throws Exception\RuntimeException
+     * @throws \Xloit\Bridge\Zend\Authentication\Exception\AuthenticationStopException
+     * @throws \Xloit\Bridge\Zend\Authentication\Exception\RuntimeException
      * @throws \Zend\Authentication\Adapter\Exception\ExceptionInterface
      * @throws \Zend\Authentication\Exception\ExceptionInterface
      * @throws \Zend\EventManager\Exception\InvalidArgumentException
@@ -210,11 +317,10 @@ class AuthenticationService extends ZendAuthenticationService implements Authent
      * @param Request                       $request
      *
      * @return AuthenticationResult
-     * @throws Exception\AuthenticationStopException
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\RuntimeException
+     * @throws \Xloit\Bridge\Zend\Authentication\Exception\AuthenticationStopException
+     * @throws \Xloit\Bridge\Zend\Authentication\Exception\RuntimeException
+     * @throws \Zend\Authentication\Exception\ExceptionInterface
      * @throws \Zend\EventManager\Exception\InvalidArgumentException
-     * @throws \Zend\Stdlib\Exception\InvalidArgumentException
      */
     public function logout(Adapter\AdapterInterface $adapter = null, Request $request = null)
     {
@@ -234,7 +340,7 @@ class AuthenticationService extends ZendAuthenticationService implements Authent
      * @param AuthenticationEvent $event
      *
      * @return AuthenticationResult
-     * @throws Exception\AuthenticationStopException
+     * @throws \Xloit\Bridge\Zend\Authentication\Exception\AuthenticationStopException
      */
     protected function triggerEventResult($name, AuthenticationEvent $event)
     {
@@ -281,7 +387,8 @@ class AuthenticationService extends ZendAuthenticationService implements Authent
      * @param Request                  $request
      *
      * @return AuthenticationEvent
-     * @throws Exception\RuntimeException
+     * @throws \Xloit\Bridge\Zend\Authentication\Exception\RuntimeException
+     * @throws \Zend\Authentication\Exception\ExceptionInterface
      * @throws \Zend\EventManager\Exception\InvalidArgumentException
      */
     protected function prepareEvent(Adapter\AdapterInterface $adapter = null, Request $request = null)
