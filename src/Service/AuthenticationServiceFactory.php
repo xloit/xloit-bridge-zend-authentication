@@ -38,8 +38,8 @@ class AuthenticationServiceFactory extends AbstractFactory
      * @return AuthenticationService
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
-     * @throws \Xloit\Std\Exception\RuntimeException
      * @throws \Xloit\Bridge\Zend\ServiceManager\Exception\StateException
+     * @throws \Xloit\Std\Exception\RuntimeException
      */
     public function __invoke(ContainerInterface $container, $name, array $options = null)
     {

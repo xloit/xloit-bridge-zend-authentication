@@ -291,8 +291,8 @@ class AuthenticationService implements AuthenticationServiceInterface
      * @param Request                       $request
      *
      * @return AuthenticationResult
-     * @throws Exception\AuthenticationStopException
-     * @throws Exception\RuntimeException
+     * @throws \Xloit\Bridge\Zend\Authentication\Exception\AuthenticationStopException
+     * @throws \Xloit\Bridge\Zend\Authentication\Exception\RuntimeException
      * @throws \Zend\Authentication\Adapter\Exception\ExceptionInterface
      * @throws \Zend\Authentication\Exception\RuntimeException
      * @throws \Zend\Authentication\Exception\ExceptionInterface

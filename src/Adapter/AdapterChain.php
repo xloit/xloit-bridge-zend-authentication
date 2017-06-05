@@ -38,7 +38,7 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
     const DEFAULT_PRIORITY = 1;
 
     /**
-     * Adapter chain
+     * Adapter chain.
      *
      * @var PriorityQueue
      */
@@ -61,7 +61,7 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
     /**
      * Constructor to prevent {@link AdapterChain} from being loaded more than once.
      *
-     * @param array                       $adapters
+     * @param AdapterInterface[]          $adapters
      * @param array|AuthenticationOptions $options
      */
     public function __construct(array $adapters = [], $options = null)
@@ -93,43 +93,6 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
     public function setBreakChainOnFailure($breakChainOnFailure)
     {
         $this->breakChainOnFailure = (bool) $breakChainOnFailure;
-
-        return $this;
-    }
-
-    /**
-     *
-     *
-     * @param array $adapters
-     *
-     * @return $this
-     */
-    public function setAdapters(array $adapters)
-    {
-        $this->adapters = new PriorityQueue();
-
-        foreach ($adapters as $priority => $adapter) {
-            if (!is_numeric($priority)) {
-                $priority = self::DEFAULT_PRIORITY;
-            }
-
-            $this->attach($adapter, (int) $priority);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Attach a adapter to the end of the chain.
-     *
-     * @param AdapterInterface $adapter
-     * @param int              $priority Priority at which to enqueue adapter; defaults to 1 (higher executes earlier)
-     *
-     * @return $this
-     */
-    public function attach(AdapterInterface $adapter, $priority = self::DEFAULT_PRIORITY)
-    {
-        $this->adapters->insert($adapter, $priority);
 
         return $this;
     }
@@ -172,6 +135,21 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
         foreach ($adapters as $item) {
             $this->attach($item['data'], $item['priority']);
         }
+
+        return $this;
+    }
+
+    /**
+     * Attach a adapter to the end of the chain.
+     *
+     * @param AdapterInterface $adapter
+     * @param int              $priority Priority at which to enqueue adapter; defaults to 1 (higher executes earlier).
+     *
+     * @return $this
+     */
+    public function attach(AdapterInterface $adapter, $priority = self::DEFAULT_PRIORITY)
+    {
+        $this->adapters->insert($adapter, $priority);
 
         return $this;
     }
@@ -248,64 +226,6 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
     }
 
     /**
-     * Returns array of authentication results.
-     *
-     * @return AuthenticationResult[]
-     */
-    public function getResults()
-    {
-        return $this->results;
-    }
-
-    /**
-     * Returns array of validation failure messages.
-     *
-     * @return array
-     */
-    public function getMessages()
-    {
-        $results  = $this->getResults();
-        $messages = [];
-
-        foreach ($results as $result) {
-            /** @noinspection SlowArrayOperationsInLoopInspection */
-            $messages = array_replace_recursive($messages, $result->getMessages());
-        }
-
-        return $messages;
-    }
-
-    /**
-     * Get all the adapters.
-     *
-     * @return AdapterInterface[]
-     */
-    public function getAdapters()
-    {
-        return $this->adapters->toArray(PriorityQueue::EXTR_DATA);
-    }
-
-    /**
-     * Removes all previously set adapters.
-     *
-     * @return void
-     */
-    public function clearAdapters()
-    {
-        $this->adapters = [];
-    }
-
-    /**
-     * Deep clone handling.
-     *
-     * @return void
-     */
-    public function __clone()
-    {
-        $this->adapters = clone $this->adapters;
-    }
-
-    /**
      * Retrieve an external iterator.
      *
      * @link   http://php.net/manual/en/iteratoraggregate.getiterator.php
@@ -322,7 +242,7 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
      *
      * @link   http://php.net/manual/en/serializable.serialize.php
      *
-     * @return string the string representation of the object or null.
+     * @return string The string representation of the object or null.
      */
     public function serialize()
     {
@@ -357,5 +277,85 @@ class AdapterChain extends AbstractAdapter implements AdapterChainInterface
         foreach ($data['adapters'] as $item) {
             $this->adapters->insert($item['data'], $item['priority']);
         }
+    }
+
+    /**
+     * Returns array of validation failure messages.
+     *
+     * @return array
+     */
+    public function getMessages()
+    {
+        $results  = $this->getResults();
+        $messages = [];
+
+        foreach ($results as $result) {
+            /** @noinspection SlowArrayOperationsInLoopInspection */
+            $messages = array_replace_recursive($messages, $result->getMessages());
+        }
+
+        return $messages;
+    }
+
+    /**
+     * Returns array of authentication results.
+     *
+     * @return AuthenticationResult[]
+     */
+    public function getResults()
+    {
+        return $this->results;
+    }
+
+    /**
+     * Get all the adapters.
+     *
+     * @return AdapterInterface[]
+     */
+    public function getAdapters()
+    {
+        return $this->adapters->toArray(PriorityQueue::EXTR_DATA);
+    }
+
+    /**
+     *
+     *
+     * @param AdapterInterface[] $adapters
+     *
+     * @return $this
+     */
+    public function setAdapters(array $adapters)
+    {
+        $this->adapters = new PriorityQueue();
+
+        foreach ($adapters as $priority => $adapter) {
+            if (!is_numeric($priority)) {
+                $priority = self::DEFAULT_PRIORITY;
+            }
+
+            $this->attach($adapter, (int) $priority);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Removes all previously set adapters.
+     *
+     * @return void
+     */
+    public function clearAdapters()
+    {
+        $this->adapters = [];
+    }
+
+    /**
+     * Deep clone handling.
+     *
+     * @return void
+     */
+    public function __clone()
+    {
+        $this->adapters = clone $this->adapters;
     }
 }

@@ -33,7 +33,7 @@ class Adapter extends AbstractAdapter
      * @param mixed $identity
      * @param array $messages
      *
-     * @return static
+     * @return $this
      */
     public function setResults($code, $identity = null, array $messages = [])
     {

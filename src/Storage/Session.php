@@ -52,9 +52,9 @@ class Session extends Storage\Session
     /**
      * Constructor to prevent {@link Session} from being loaded more than once.
      *
-     * @param mixed          $namespace
-     * @param mixed          $member
-     * @param SessionManager $manager
+     * @param string            $namespace
+     * @param string|mixed|null $member
+     * @param SessionManager    $manager
      */
     public function __construct(
         $namespace = self::NAMESPACE_DEFAULT, $member = self::MEMBER_DEFAULT, SessionManager $manager = null

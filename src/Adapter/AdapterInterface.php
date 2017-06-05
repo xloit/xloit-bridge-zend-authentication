@@ -31,7 +31,7 @@ interface AdapterInterface extends ZendAdapterInterface
     /**
      *
      *
-     * @param  array|AuthenticationOptions $options
+     * @param array|AuthenticationOptions $options
      *
      * @return $this
      */
@@ -54,7 +54,7 @@ interface AdapterInterface extends ZendAdapterInterface
     /**
      * Sets the credential for binding.
      *
-     * @param  mixed $credential
+     * @param mixed $credential
      *
      * @return $this
      */
@@ -70,7 +70,7 @@ interface AdapterInterface extends ZendAdapterInterface
     /**
      * Sets the identity for binding.
      *
-     * @param  mixed $identity
+     * @param mixed $identity
      *
      * @return $this
      */

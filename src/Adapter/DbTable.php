@@ -46,7 +46,7 @@ class DbTable extends CredentialTreatmentAdapter implements AdapterInterface
      * required pieces of information.
      *
      * @return bool
-     * @throws Exception\RuntimeException in the event that setup was not done properly.
+     * @throws \Xloit\Bridge\Zend\Authentication\Exception\RuntimeException
      */
     protected function authenticateSetup()
     {
@@ -74,7 +74,7 @@ class DbTable extends CredentialTreatmentAdapter implements AdapterInterface
      * This method attempts to validate that the record in the resultset is indeed a record that matched the identity
      * provided to this adapter.
      *
-     * @param  array $resultIdentity
+     * @param array $resultIdentity
      *
      * @return AuthenticationResult
      */

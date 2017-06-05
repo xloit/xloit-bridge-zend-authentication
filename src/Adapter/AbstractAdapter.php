@@ -43,7 +43,7 @@ abstract class AbstractAdapter extends BaseAbstractAdapter implements AdapterInt
     ];
 
     /**
-     * Constructor to prevent {@link Doctrine} from being loaded more than once.
+     * Constructor to prevent {@link AbstractAdapter} from being loaded more than once.
      *
      * @param array|AuthenticationOptions $options
      */
